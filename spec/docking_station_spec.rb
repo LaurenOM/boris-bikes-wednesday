@@ -15,12 +15,10 @@ describe DockingStation do
 		expect(bike.working?).to eq(true)
 	end
 
-	
   it "can dock a bike" do
 		station = DockingStation.new
-		bike = Bike.new
 
-    expect(station.dock(bike)).to eq(bike)
+    expect(station.dock(nil)).to eq(bike)
 	end
 
 
@@ -36,8 +34,13 @@ describe DockingStation do
   it 'can throw error if no bike is docked' do
     station = DockingStation.new
     station.dock(nil)
-    expect{station.release_bike}.to raise_error("this is an error")
+    expect{station.release_bike}.to raise_error("docking station is empty")
   end
 
+	it 'throws an error if bike is already docked' do
+		station = DockingStation.new
+		bike = Bike.new
 
+		expect{2.times{station.dock(bike)}}.to raise_error("docking station is full")
+	end
 end

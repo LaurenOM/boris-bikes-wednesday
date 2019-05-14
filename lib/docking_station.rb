@@ -3,14 +3,18 @@ class DockingStation
   
   def release_bike
     if @bike == nil
-      raise "this is an error"
+      raise "docking station is empty"
     else
-    Bike.new
+      Bike.new
     end
   end
   
   def dock(bike)
-    @bike = bike
+    if bike == nil
+      @bike = bike
+    else 
+      raise "docking station is full"
+    end
   end
 
 end
