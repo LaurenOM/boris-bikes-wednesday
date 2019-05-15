@@ -2,15 +2,14 @@ require 'docking_station.rb'
 
 describe DockingStation do
 
-	it "gets a bike and expects it to be working" do
-		bike = Bike.new
+	let(:bike) {Bike.new}
 
+	it "gets a bike and expects it to be working" do
 		expect(bike.working?).to eq(true)
 	end
 
   it "can dock a bike" do
 		station = DockingStation.new
-		bike = Bike.new
 
     expect(station.dock(bike)).to include(bike)
 	end
@@ -18,7 +17,6 @@ describe DockingStation do
 
 	it "can show a docked bike" do
 		docking_station = DockingStation.new
-		bike = Bike.new
 
 		docking_station.dock(bike)
 		
@@ -33,9 +31,15 @@ describe DockingStation do
 
 	it 'throws an error if bike is already docked' do
 		station = DockingStation.new
-		bike = Bike.new
 
 		DockingStation::DEFAULT_CAPACITY.times{station.dock(bike)}
 		expect{station.dock(bike)}.to raise_error("docking station is full")
 	end
+
+	it 'can set a default capacity or specified capacity' do
+		station_25 = DockingStation.new(25)
+
+		25.times{ station_25.dock(bike) }
+		expect{station_25.dock(bike)}.to raise_error("docking station is full")
+	end 
 end
