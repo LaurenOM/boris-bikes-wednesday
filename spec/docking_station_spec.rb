@@ -2,7 +2,7 @@ require 'docking_station.rb'
 
 describe DockingStation do
 
-	let(:bike) {Bike.new}
+	let(:bike) {double(:bike)}
 	let(:station) {DockingStation.new}
 
   it "can dock a bike" do
