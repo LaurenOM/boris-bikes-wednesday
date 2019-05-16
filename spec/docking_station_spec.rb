@@ -54,4 +54,12 @@ describe DockingStation do
 
 		expect{station.release_bike}.to raise_error("no working bikes")
 	end
+
+	it 'should give broken bikes to Van when it asks for them' do
+		van = Van.new
+		
+		3.times { station.dock(Bike.new, true) }
+
+		expect(station.release_broken.length).to eq(3)
+	end
 end

@@ -25,6 +25,17 @@ class DockingStation
     @bikes << bike
   end
 
+  def release_broken
+    broken_bikes = []
+
+    @bikes.each do |bike|
+          broken_bikes.push(bike) if bike.broken
+    end
+    @bikes -= broken_bikes
+    return broken_bikes
+
+  end
+
   private 
 
   def full?
@@ -34,5 +45,5 @@ class DockingStation
   def empty?
     @bikes.empty?
   end
-  
+
 end
