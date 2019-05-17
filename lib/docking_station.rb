@@ -9,31 +9,32 @@ class DockingStation
   end
 
   def release_bike
-    raise "docking station is empty" if empty?
-    @bikes.each do |bike|
-      if bike.broken == false
-        @bikes.pop
-      end
-    end
-    raise "no working bikes"
+    raise 'docking station is empty' if empty?
+    raise "no working bikes" if bikes.last.broken
+
+    bikes.pop
   end
   
   def dock(bike, broken=false)
     raise "docking station is full" if full?
     
     bike.broken = broken
-    @bikes << bike
+
+    if bike.broken
+      bikes.unshift(bike)
+    else
+      bikes << bike
+    end
   end
 
   def release_broken
     broken_bikes = []
 
     @bikes.each do |bike|
-          broken_bikes.push(bike) if bike.broken
+        broken_bikes.push(bike) if bike.broken
     end
     @bikes -= broken_bikes
     return broken_bikes
-
   end
 
   private 
